@@ -9,7 +9,7 @@
     <head>
 		<meta charset='UTF-8'>
 		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-        <title>Log Active</title>
+        <title>Log Colplan</title>
         <meta name='viewport' content='width=device-width, initial-scale=1'>
 		<link rel="shortcut icon" href="../img/iconweb.ico" type="image/x-icon"/>
         <link rel='stylesheet' type='text/css' media='screen' href='../css/bootstrap/bootstrap.min.css'>
@@ -25,7 +25,7 @@
                         <main class="form-signin mt-2">
                             <div class="accordion" id="accordionExample">
                                 <div class="card-body p-4">
-                                <h2 class="mb-4 text-center">Log de requisições da API</h2>
+                                <h2 class="mb-4 text-center">LOG DA API</h2>
                                 <div class="accordion-item">
                                     <h2 class="accordion-header">
                                         <button class="accordion-button collapsed bg-primary text-white" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">

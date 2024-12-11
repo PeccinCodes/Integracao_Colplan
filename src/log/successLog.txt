@@ -1,2 +1,0 @@
-[2024-11-28 13:51:30] Sucesso: {"_links":{"job":{"href":"https:\/\/homo-peccin-colplan.ve3.com.br\/api\/jobs\/48750"}},"detail":"A job has been reserved for your request.","title":"Accepted","status":202}
-[2024-11-28 13:55:42] Sucesso: {"_links":{"job":{"href":"https:\/\/homo-peccin-colplan.ve3.com.br\/api\/jobs\/48752"}},"detail":"A job has been reserved for your request.","title":"Accepted","status":202}

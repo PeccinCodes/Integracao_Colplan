@@ -1,18 +1,161 @@
 $(document).ready(function() {
-    $('#reprocessarButton').on('click', function() {
-        showAlertLoading();
+
+    /*
+    // Função para carregar os ciclos no select
+    function carregarCiclos() {
         $.ajax({
-            url: '../php/controller/post/baixarFatura/postIntegra.php', // Faz requisição para atualizar os dados
-            method: 'GET', // ou POST, dependendo do seu endpoint
-            dataType: 'json', // ajuste conforme o retorno esperado
-            success: function(response) {
-                // Apresenta alerta para o usuário
-                showAlertModal('success', 'Sucesso ao reprocessar!');
+            type: "GET",
+            url: '../php/controller/get/sop_disaggregation.php',
+            dataType: 'json',
+            success: function(data) {
+                const ciclos = data['_embedded']['items'];
+                var selectCiclo = $('#nome_ciclo');
+                // Limpa as opções atuais
+                selectCiclo.empty(); 
+                // Adiciona uma opção padrão
+                selectCiclo.append('<option value="" disabled selected>Selecione o ciclo</option>');
+                // Itera sobre os dados e adiciona as opções no select
+                ciclos.forEach(function(ciclo) {
+                    if (
+                        ciclo.id &&
+                        ciclo.finish_date &&
+                        ciclo.scenario_channel_level &&
+                        ciclo.scenario_product_level &&
+                        ciclo.name
+                    ) {
+                        selectCiclo.append(`<option 
+                            value="${ciclo.id}" 
+                            data-finish-date="${ciclo.finish_date}" 
+                            data-channel-level="${ciclo.scenario_channel_level}" 
+                            data-product-level="${ciclo.scenario_product_level}">
+                            ${ciclo.name}
+                        </option>`);
+                    }
+                });
             },
             error: function(xhr, status, error) {
-                // Apresenta alerta para o usuário
+                console.error("Erro ao carregar os setores: " + error);
+            }
+        });
+    }
+        
+    // Exibe os ciclos
+    carregarCiclos();
+
+    // Preencher os campos readonly ao selecionar um ciclo
+    $('#nome_ciclo').on('change', function() {
+        const selectedOption = $(this).find(':selected');
+        const idCiclo = selectedOption.val();
+        // Formata a data
+        const finishDate = selectedOption.data('finish-date') ? selectedOption.data('finish-date').split(' ')[0] : ''; 
+        const channelLevel = selectedOption.data('channel-level');
+        const productLevel = selectedOption.data('product-level');
+
+        $('#id_ciclo').val(idCiclo);
+        $('#finish_date').val(finishDate);
+        $('#scenario_channel_level').val(channelLevel);
+        $('#scenario_product_level').val(productLevel);
+    });*/
+
+    // Função para carregar os ciclos no select
+    function carregarCiclos() {
+        // Consulta para obter os ciclos
+        $.ajax({
+            type: "GET",
+            url: '../php/controller/get/sop_disaggregation.php',
+            dataType: 'json',
+            success: function(data) {
+                const ciclos = data['_embedded']['items'];
+
+                // Consulta para obter os IDs a serem excluídos
+                $.ajax({
+                    type: "GET",
+                    url: '../php/controller/get/id_sop_disaggregation.php',
+                    dataType: 'json',
+                    success: function(idsExcluidos) {
+                        const idsInvalidos = idsExcluidos.map(item => item.ID);
+
+                        var selectCiclo = $('#nome_ciclo');
+                        // Limpa as opções atuais
+                        selectCiclo.empty();
+                        // Adiciona uma opção padrão
+                        selectCiclo.append('<option value="" disabled selected>Selecione o ciclo</option>');
+
+                        // Filtra os ciclos válidos
+                        const ciclosValidos = ciclos.filter(ciclo => {
+                            return (
+                                ciclo.id && // ID não pode ser vazio
+                                !idsInvalidos.includes(ciclo.id.toString()) && // ID não deve estar na lista de excluídos
+                                ciclo.finish_date && // finish_date não pode ser vazio
+                                ciclo.scenario_channel_level && // scenario_channel_level não pode ser vazio
+                                ciclo.scenario_product_level && // scenario_product_level não pode ser vazio
+                                ciclo.name // name não pode ser vazio
+                            );
+                        });
+
+                        // Adiciona os ciclos válidos ao select
+                        ciclosValidos.forEach(ciclo => {
+                            selectCiclo.append(`<option 
+                                value="${ciclo.id}" 
+                                data-finish-date="${ciclo.finish_date}" 
+                                data-channel-level="${ciclo.scenario_channel_level}" 
+                                data-product-level="${ciclo.scenario_product_level}">
+                                ${ciclo.id} - ${ciclo.name}
+                            </option>`);
+                        });
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("Erro ao carregar os IDs excluídos: " + error);
+                    }
+                });
+            },
+            error: function(xhr, status, error) {
+                console.error("Erro ao carregar os ciclos: " + error);
+            }
+        });
+    }
+
+    // Exibe os ciclos
+    carregarCiclos();
+
+    // Preencher os campos readonly ao selecionar um ciclo
+    $('#nome_ciclo').on('change', function() {
+        const selectedOption = $(this).find(':selected');
+        const idCiclo = selectedOption.val();
+        // Formata a data
+        const finishDate = selectedOption.data('finish-date') ? selectedOption.data('finish-date').split(' ')[0] : '';
+        const channelLevel = selectedOption.data('channel-level');
+        const productLevel = selectedOption.data('product-level');
+
+        $('#id_ciclo').val(idCiclo);
+        $('#finish_date').val(finishDate);
+        $('#scenario_channel_level').val(channelLevel);
+        $('#scenario_product_level').val(productLevel);
+    });
+
+    $('#reprocessarButton').on('click', function() {
+        showAlertLoading();
+        const idCiclo = $('#id_ciclo').val();
+        const finishDate = $('#finish_date').val();
+        const channelLevel = $('#scenario_channel_level').val();
+        const productLevel = $('#scenario_product_level').val();
+
+        $.ajax({
+            url: '../php/controller/get/insert_sop_disaggregation.php',
+            method: 'GET',
+            dataType: 'json',
+            data: {
+                id_ciclo: idCiclo,
+                finish_date: finishDate,
+                scenario_channel_level: channelLevel,
+                scenario_product_level: productLevel,
+            },
+            success: function(response) {
+                console.log(response);
+                showAlertModal(response.type, response.message);
+            },
+            error: function(xhr, status, error) {
                 showAlertModal('danger', xhr.responseJSON ? xhr.responseJSON.message : 'Erro desconhecido.');
-                // Lida com erros de chamada AJAX aqui
                 console.error('Erro na chamada AJAX:', error);
             }
         });
@@ -36,13 +179,19 @@ $(document).ready(function() {
             </div>
         </div>
         `;
-        // Abre o modal
+        // Adiciona um listener de evento para a tecla "ESC"
+        $(document).on('keydown', function(e) {
+            if (e.key === 'Escape') {
+                // Atualiza a página quando a tecla "ESC" é pressionada
+                window.location.reload();
+            }
+        });
         $('#alertModal').modal('show');
     }
 
-    // Montar o modal para apresentar o alerta
+    // Montar o modal para apresentar o alerta de carregamento
     function showAlertLoading() {
-        const alertModalBody = document.getElementById('alertModal');
+        const alertModalBody = document.getElementById('alertModal');   
         alertModalBody.innerHTML = `
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content mt-4">
@@ -59,7 +208,7 @@ $(document).ready(function() {
             </div>
         </div>
         `;
-        // Abre o modal
         $('#alertModal').modal('show');
     }
+
 });

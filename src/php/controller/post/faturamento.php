@@ -8,8 +8,8 @@
 
     // Caminho do arquivo SQL
     $sqlFilePath = "../../../db/sql/scripts/faturamento.sql";
-    $api_url = "https://peccin-colplan.ve3.com.br/api/async/invoices/channel-hierarchy";
-    //$api_url = "https://homo-peccin-colplan.ve3.com.br/api/async/invoices/channel-hierarchy";
+    //$api_url = "https://peccin-colplan.ve3.com.br/api/async/invoices/channel-hierarchy";
+    $api_url = "https://homo-peccin-colplan.ve3.com.br/api/async/invoices/channel-hierarchy";
 
     // Função para salvar log das operações
     function salvarLog($arquivo, $mensagem) {
@@ -161,7 +161,7 @@
     // Converte para JSON
     header('Content-Type: application/json');
     
-    echo json_encode($formattedData, JSON_PRETTY_PRINT);
+    //echo json_encode($formattedData, JSON_PRETTY_PRINT);
 
     // Inicializa cURL
     $ch = curl_init($api_url);

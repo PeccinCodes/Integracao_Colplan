@@ -7,7 +7,7 @@
     <head>
         <meta charset='UTF-8'>
         <meta http-equiv="Content-Type" content="text/html; charset='iso-8859-1" />
-        <title>Integração Faturas Active</title>
+        <title>Integração Colplan</title>
         <meta name='viewport' content='width=device-width, initial-scale=1'>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
 		<link rel="shortcut icon" href="../img/iconweb.ico" type="image/x-icon"/>
@@ -28,7 +28,7 @@
                                 <div class="text-center mb-4" >
                                     <img class="" src="../img/logo.png" alt="" width="164" height="62">
                                 </div>
-                                <h5 class="text-center mt-2 mb-4"><b>Integração Faturas Active</b></h5>
+                                <h5 class="text-center mt-2 mb-4"><b>INTEGRAÇÃO COLPLAN</b></h5>
                                 <div class="form-group">
                                     <label for="user">Usuário:</label>
                                     <input type="user" class="form-control-peccin mt-2 mb-2" name="username" id="username" placeholder="Insira seu usuário" required>

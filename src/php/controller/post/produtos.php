@@ -8,8 +8,8 @@
 
     // Caminho do arquivo SQL
     $sqlFilePath = "../../../db/sql/scripts/produtos.sql";
-    //$api_url = "https://homo-peccin-colplan.ve3.com.br/api/async/products";
-    $api_url = "https://peccin-colplan.ve3.com.br/api/async/products";
+    $api_url = "https://homo-peccin-colplan.ve3.com.br/api/async/products";
+    //$api_url = "https://peccin-colplan.ve3.com.br/api/async/products";
 
     // Função para salvar log das operações
     function salvarLog($arquivo, $mensagem) {
@@ -88,11 +88,12 @@
         die("Erro ao converter resultados para JSON: " . json_last_error_msg());
     }
 
-    // Exibe o JSON ajustado (apenas para debug, remova no ambiente de produção)
-    //echo($json_resultados);
 
     // Define o cabeçalho de resposta para JSON
     header('Content-Type: application/json');
+
+    // Exibe o JSON ajustado (apenas para debug, remova no ambiente de produção)
+    //echo($json_resultados);
 
     if (json_last_error() !== JSON_ERROR_NONE) {
         die("Erro ao converter resultados para JSON: " . json_last_error_msg());
