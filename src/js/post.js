@@ -1,62 +1,5 @@
 $(document).ready(function() {
 
-    /*
-    // Função para carregar os ciclos no select
-    function carregarCiclos() {
-        $.ajax({
-            type: "GET",
-            url: '../php/controller/get/sop_disaggregation.php',
-            dataType: 'json',
-            success: function(data) {
-                const ciclos = data['_embedded']['items'];
-                var selectCiclo = $('#nome_ciclo');
-                // Limpa as opções atuais
-                selectCiclo.empty(); 
-                // Adiciona uma opção padrão
-                selectCiclo.append('<option value="" disabled selected>Selecione o ciclo</option>');
-                // Itera sobre os dados e adiciona as opções no select
-                ciclos.forEach(function(ciclo) {
-                    if (
-                        ciclo.id &&
-                        ciclo.finish_date &&
-                        ciclo.scenario_channel_level &&
-                        ciclo.scenario_product_level &&
-                        ciclo.name
-                    ) {
-                        selectCiclo.append(`<option 
-                            value="${ciclo.id}" 
-                            data-finish-date="${ciclo.finish_date}" 
-                            data-channel-level="${ciclo.scenario_channel_level}" 
-                            data-product-level="${ciclo.scenario_product_level}">
-                            ${ciclo.name}
-                        </option>`);
-                    }
-                });
-            },
-            error: function(xhr, status, error) {
-                console.error("Erro ao carregar os setores: " + error);
-            }
-        });
-    }
-        
-    // Exibe os ciclos
-    carregarCiclos();
-
-    // Preencher os campos readonly ao selecionar um ciclo
-    $('#nome_ciclo').on('change', function() {
-        const selectedOption = $(this).find(':selected');
-        const idCiclo = selectedOption.val();
-        // Formata a data
-        const finishDate = selectedOption.data('finish-date') ? selectedOption.data('finish-date').split(' ')[0] : ''; 
-        const channelLevel = selectedOption.data('channel-level');
-        const productLevel = selectedOption.data('product-level');
-
-        $('#id_ciclo').val(idCiclo);
-        $('#finish_date').val(finishDate);
-        $('#scenario_channel_level').val(channelLevel);
-        $('#scenario_product_level').val(productLevel);
-    });*/
-
     // Função para carregar os ciclos no select
     function carregarCiclos() {
         // Consulta para obter os ciclos
@@ -118,6 +61,17 @@ $(document).ready(function() {
     // Exibe os ciclos
     carregarCiclos();
 
+    function getCurrentDateFormatted() {
+        const today = new Date();
+        const year = today.getFullYear();
+        const month = String(today.getMonth() + 1).padStart(2, '0'); // Adiciona zero à esquerda, se necessário
+        const day = String(today.getDate()).padStart(2, '0'); // Adiciona zero à esquerda, se necessário
+        return `${year}-${month}-${day}`;
+    }
+    
+    // Exemplo de uso:
+    const formattedDate = getCurrentDateFormatted();
+
     // Preencher os campos readonly ao selecionar um ciclo
     $('#nome_ciclo').on('change', function() {
         const selectedOption = $(this).find(':selected');
@@ -129,8 +83,10 @@ $(document).ready(function() {
 
         $('#id_ciclo').val(idCiclo);
         $('#finish_date').val(finishDate);
-        $('#scenario_channel_level').val(channelLevel);
-        $('#scenario_product_level').val(productLevel);
+        //$('#scenario_channel_level').val(channelLevel);
+        $('#scenario_channel_level').val('2');
+        //$('#scenario_product_level').val(productLevel);
+        $('#scenario_product_level').val('4');
     });
 
     $('#reprocessarButton').on('click', function() {
