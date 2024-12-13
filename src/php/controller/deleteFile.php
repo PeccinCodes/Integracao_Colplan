@@ -20,7 +20,7 @@ function excluirArquivoAntigo($successLog, $errorLog)  {
         $diferencaEmDias = $diferencaEmSegundos / (60 * 60 * 24);
 
         // Se o arquivo tiver mais de 7 dias, exclua-o
-        if ($diferencaEmDias > 7) {
+        if ($diferencaEmDias > 28) {
             unlink($successLog, $errorLog);
             echo "O arquivo $successLog, $errorLog  foi excluído.";
         } else {

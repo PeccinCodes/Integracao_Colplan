@@ -8,8 +8,8 @@
 
     // Caminho do arquivo SQL
     $sqlFilePath = "../../../db/sql/scripts/produtos.sql";
-    $api_url = "https://homo-peccin-colplan.ve3.com.br/api/async/products";
-    //$api_url = "https://peccin-colplan.ve3.com.br/api/async/products";
+    //$api_url = "https://homo-peccin-colplan.ve3.com.br/api/async/products";
+    $api_url = "https://peccin-colplan.ve3.com.br/api/async/products";
 
     // Função para salvar log das operações
     function salvarLog($arquivo, $mensagem) {

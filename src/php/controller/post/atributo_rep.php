@@ -8,8 +8,8 @@
 
     // Caminho do arquivo SQL
     $sqlFilePath = "../../../db/sql/scripts/atributo_rep.sql";
-    //$api_url = "https://peccin-colplan.ve3.com.br/api/async/channels-attributes";
-    $api_url = "https://homo-peccin-colplan.ve3.com.br/api/async/channels-attributes";
+    $api_url = "https://peccin-colplan.ve3.com.br/api/async/channels-attributes";
+    //$api_url = "https://homo-peccin-colplan.ve3.com.br/api/async/channels-attributes";
 
     // Função para salvar log das operações
     function salvarLog($arquivo, $mensagem) {

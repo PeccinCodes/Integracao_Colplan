@@ -3,4 +3,4 @@ $usuariosAutorizados = [
     'diego.venuzka', 
     'ronaldo.rigo',
     'system.admin',
-    'gustavo'];
+    'luiz.marcon'];

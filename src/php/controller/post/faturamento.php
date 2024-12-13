@@ -8,8 +8,8 @@
 
     // Caminho do arquivo SQL
     $sqlFilePath = "../../../db/sql/scripts/faturamento.sql";
-    //$api_url = "https://peccin-colplan.ve3.com.br/api/async/invoices/channel-hierarchy";
-    $api_url = "https://homo-peccin-colplan.ve3.com.br/api/async/invoices/channel-hierarchy";
+    $api_url = "https://peccin-colplan.ve3.com.br/api/async/invoices/channel-hierarchy";
+    //$api_url = "https://homo-peccin-colplan.ve3.com.br/api/async/invoices/channel-hierarchy";
 
     // Função para salvar log das operações
     function salvarLog($arquivo, $mensagem) {
@@ -77,39 +77,6 @@
         }
         return $identifier; // Retorna sem máscara caso não seja CNPJ
     }
-
-    /*
-    // Função para converter os dados para o formato desejado - FAZ SEPARADO CADA DETALHE
-    function formatData($data) {
-        $formattedData = [];
-
-        foreach ($data as $item) {
-            // Cria um registro para cada detalhe
-            $formattedData[] = [
-                "order_code" => $item['ORDER_CODE'],
-                "details" => [
-                    [
-                        "sku_code" => $item['SKU_CODE'],
-                        "quantity" => (int) $item['QUANTITY'], // Converte para inteiro
-                        "gross_revenue" => (float) $item['GROSS_REVENUE'], // Converte para float
-                        "net_revenue" => (float) $item['VALOR_LIQUIDO'] // Converte para float
-                    ]
-                ],
-                "date" => $item['DATE2'],
-                "code" => $item['CODE'],
-                "invoice_status" => "01", // Adicione um valor fixo ou ajuste conforme necessário
-                "recipient_identifier" => formatCNPJ($item['RECIPIENT_IDENTIFIER']),
-                "issuing_identifier" => formatCNPJ($item['ISSUING_IDENTIFIER']),
-                "channel_code_level_1" => $item['CHANNEL_CODE_LEVEL_1'],
-                "channel_code_level_2" => $item['CHANNEL_CODE_LEVEL_2'],
-                "channel_code_level_3" => $item['CHANNEL_CODE_LEVEL_3'],
-                "channel_code_level_4" => $item['CHANNEL_CODE_LEVEL_4']
-            ];
-        }
-
-        return $formattedData;
-    }
-    */
 
     // Seta contexto para View
     $caminhoView = oci_parse($ora_conexao, 
