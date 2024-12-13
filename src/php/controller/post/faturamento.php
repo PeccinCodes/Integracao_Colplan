@@ -141,6 +141,9 @@
         'Authorization: Bearer ' . $token,
         'Content-Length: ' . strlen($json_resultados)
     ]);
+    // Desabilita a verificação do SSL 
+	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+	curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
     curl_setopt($ch, CURLOPT_POSTFIELDS, $json_resultados); // Envia o array diretamente no body
 
     // Executa a requisição cURL
