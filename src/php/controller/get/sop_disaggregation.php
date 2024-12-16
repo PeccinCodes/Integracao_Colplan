@@ -41,6 +41,9 @@
         'Content-Type: application/json',
         'Authorization: Bearer ' . $token
     ]);
+	// Desabilita a verificação do SSL 
+	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+	curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
 
     // Executa a requisição cURL
     $response = curl_exec($ch);
